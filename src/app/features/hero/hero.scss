@@ -1,0 +1,29 @@
+@use '../../../styles/variables' as *;
+.hero { --globo-tamanho: 128%; position: relative; min-height: 100svh; max-width: 1084px; margin: 0 auto; padding: 144px 0 116px; display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; }
+.hero-copy { z-index: 1; }
+.availability { width: fit-content; min-height: 31px; padding: 0 14px; display: flex; align-items: center; gap: 9px; border: 1px solid $border-subtle; border-radius: 999px; background: rgba(255,255,255,.025); color: #bac2d2; font-size: 12px; }
+.availability span { width: 8px; height: 8px; border-radius: 50%; background: #22c99a; box-shadow: 0 0 10px rgba(34,201,154,.3); }
+h1 { margin: 22px 0 20px; color: $text-primary; font-size: clamp(56px, 5.7vw, 72px); line-height: 1; letter-spacing: -.055em; font-weight: 800; }
+.gradient-text { background: $accent-gradient; -webkit-background-clip: text; background-clip: text; color: transparent; }
+.role { margin: 0 0 14px; font-size: 20px; line-height: 1.4; font-weight: 500; letter-spacing: -.02em; }
+.role span { color: #7e879b; padding: 0 2px; }
+.intro { max-width: 510px; margin: 0; color: $text-secondary; font-size: 18px; line-height: 1.55; }
+.actions { margin-top: 37px; display: flex; gap: 12px; }
+.primary-button, .secondary-button { min-height: 45px; padding: 0 24px; display: inline-flex; align-items: center; justify-content: center; gap: 10px; border-radius: 13px; font-size: 14px; font-weight: 600; }
+.primary-button { background: $accent-gradient; color: #10111b; }
+.primary-button span { font-size: 20px; line-height: .7; }
+.secondary-button { min-width: 137px; border: 1px solid rgba(255,255,255,.14); background: transparent; }
+.socials { display: flex; gap: 8px; margin-top: 40px; }
+.socials a { width: 40px; height: 40px; display: grid; place-items: center; border: 1px solid rgba(255,255,255,.08); border-radius: 12px; color: #9da6b8; transition: color .2s, border-color .2s; }
+.socials a:hover { color: $text-primary; border-color: rgba(139,92,246,.55); }
+.socials svg { width: 19px; height: 19px; fill: currentColor; }
+.socials a:last-child svg { fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round; }
+.hero-globe { min-width: 0; width: var(--globo-tamanho); height: auto; aspect-ratio: 1; display: block; justify-self: center; }
+.scroll-hint { position: absolute; bottom: 18px; left: 50%; transform: translateX(-50%); display: grid; justify-items: center; gap: 10px; color: #788196; font-size: 12px; opacity: 1; visibility: visible; pointer-events: auto; transition: opacity 250ms ease, visibility 0s linear 0s; }
+.scroll-hint.hidden { opacity: 0; visibility: hidden; pointer-events: none; transition: opacity 250ms ease, visibility 0s linear 250ms; }
+.scroll-hint svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; animation: nudge 1.7s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(4px); } }
+@media (max-width: 1150px) { .hero { margin-inline: 7.7%; } }
+@media (max-width: 900px) { .hero { min-height: auto; padding-top: 105px; padding-bottom: 95px; grid-template-columns: 1fr; gap: 4px; } .hero-globe { grid-row: 1; width: var(--globo-tamanho); max-width: 563px; justify-self: center; } .hero-copy { grid-row: 2; } h1 { font-size: clamp(54px, 10vw, 68px); } .scroll-hint { bottom: 16px; } }
+@media (max-width: 540px) { .hero { margin-inline: 22px; padding-top: 84px; } h1 { font-size: clamp(48px, 13vw, 62px); } .role { font-size: 17px; } .intro { font-size: 16px; } .actions { margin-top: 27px; } .primary-button, .secondary-button { padding: 0 17px; } .secondary-button { min-width: auto; } .socials { margin-top: 30px; } }
+@media (prefers-reduced-motion: reduce) { .scroll-hint svg { animation: none; } }

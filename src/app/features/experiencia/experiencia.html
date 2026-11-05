@@ -1,0 +1,40 @@
+<section class="experiencia" id="experiencia" aria-labelledby="experiencia-title">
+  <div class="experiencia-inner">
+    <div class="eyebrow" appReveal="top" (revealed)="revelarLinha()"><span>02</span><i aria-hidden="true"></i><span>Experiência</span></div>
+    <header class="section-heading">
+      <h2 id="experiencia-title" appReveal="left">Onde coloquei isso em prática.</h2>
+      <p appReveal="left" [revealDelay]="120">Projetos de alto tráfego, onde performance e confiabilidade fazem diferença real.</p>
+    </header>
+
+    <div class="timeline" [class.line-visible]="linhaVisivel">
+      <div class="timeline-line" aria-hidden="true"></div>
+      @for (experiencia of experiencias; track $index) {
+        <article class="timeline-entry" [class.revealed]="experiencia.revelada">
+          <span class="timeline-dot" aria-hidden="true"></span>
+          <div class="experience-card" appReveal="right" (revealed)="revelarExperiencia(experiencia)">
+            <div class="card-heading">
+              <h3>{{ experiencia.empresa }}</h3>
+              <time>{{ experiencia.periodo }}</time>
+            </div>
+            <p class="role">{{ experiencia.cargo }}</p>
+            @if (experiencia.projeto) { <p class="project">{{ experiencia.projeto }}</p> }
+            <p class="description">{{ experiencia.descricao }}</p>
+            <ul class="deliverables">
+              @for (entrega of experiencia.entregas; track $index) {
+                <li appReveal="top" [revealDistance]="16" [revealDelay]="$index * 80"><span class="check" aria-hidden="true">✓</span><span>{{ entrega }}</span></li>
+              }
+            </ul>
+            <ul class="technologies" aria-label="Tecnologias">
+              @for (tecnologia of experiencia.tecnologias; track tecnologia) {
+                <li appReveal="top" [revealDistance]="12" [revealDelay]="($index + experiencia.entregas.length) * 80">{{ tecnologia }}</li>
+              }
+            </ul>
+            @if (experiencia.rodape) {
+              <footer class="card-footer"><p>{{ experiencia.rodape }}</p></footer>
+            }
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

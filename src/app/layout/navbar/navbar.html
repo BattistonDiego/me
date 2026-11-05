@@ -1,0 +1,9 @@
+<header class="navbar">
+  <a class="brand" href="#inicio" aria-label="Diego, início" (click)="navigate('inicio')"><span class="brand-mark">D</span><span>Diego</span></a>
+  <button class="menu-toggle" type="button" (click)="toggleMenu()" [attr.aria-expanded]="menuOpen()" aria-label="Abrir menu"><span></span><span></span><span></span></button>
+  <nav class="nav-links" [class.open]="menuOpen()" aria-label="Navegação principal">
+    <a href="#sobre" [class.active]="active() === 'sobre'" [attr.aria-current]="active() === 'sobre' ? 'true' : null" (click)="navigate('sobre')">Sobre</a><a href="#experiencia" [class.active]="active() === 'experiencia'" [attr.aria-current]="active() === 'experiencia' ? 'true' : null" (click)="navigate('experiencia')">Experiência</a><a href="#skills" [class.active]="active() === 'skills'" [attr.aria-current]="active() === 'skills' ? 'true' : null" (click)="navigate('skills')">Skills</a><a href="#projetos" [class.active]="active() === 'projetos'" [attr.aria-current]="active() === 'projetos' ? 'true' : null" (click)="navigate('projetos')">Projetos</a><a href="#contato" [class.active]="active() === 'contato'" [attr.aria-current]="active() === 'contato' ? 'true' : null" (click)="navigate('contato')">Contato</a>
+  </nav>
+  <!-- TODO: apontar para o arquivo do currículo. -->
+  <a class="resume" href="#" aria-label="Baixar currículo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3v11m0 0 4-4m-4 4-4-4M5 15v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></svg><span>Baixar currículo</span></a>
+</header>
