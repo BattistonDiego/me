@@ -9,6 +9,7 @@ export class RevealDirective implements OnInit, OnDestroy {
   @Input() revealDistance = 48;
   @Output() revealed = new EventEmitter<void>();
   private observer?: IntersectionObserver;
+  private removeTransitionListener?: () => void;
   private readonly reducedMotion = typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   constructor(private readonly element: ElementRef<HTMLElement>, private readonly renderer: Renderer2) {}
@@ -24,6 +25,12 @@ export class RevealDirective implements OnInit, OnDestroy {
     this.renderer.setStyle(el, 'opacity', '0');
     this.renderer.setStyle(el, 'transform', transform);
     this.renderer.setStyle(el, 'transition', `opacity 700ms cubic-bezier(0.22, 1, 0.36, 1) ${this.revealDelay}ms, transform 700ms cubic-bezier(0.22, 1, 0.36, 1) ${this.revealDelay}ms`);
+    this.removeTransitionListener = this.renderer.listen(el, 'transitionend', (event: TransitionEvent) => {
+      if (event.target !== el || event.propertyName !== 'transform') return;
+      this.renderer.removeStyle(el, 'transition');
+      this.removeTransitionListener?.();
+      this.removeTransitionListener = undefined;
+    });
     try {
       this.observer = new IntersectionObserver(([entry]) => {
         if (!entry.isIntersecting) return;
@@ -36,9 +43,15 @@ export class RevealDirective implements OnInit, OnDestroy {
     } catch {
       this.renderer.removeStyle(el, 'opacity');
       this.renderer.removeStyle(el, 'transform');
+      this.renderer.removeStyle(el, 'transition');
+      this.removeTransitionListener?.();
+      this.removeTransitionListener = undefined;
       this.revealed.emit();
     }
   }
 
-  ngOnDestroy(): void { this.observer?.disconnect(); }
+  ngOnDestroy(): void {
+    this.observer?.disconnect();
+    this.removeTransitionListener?.();
+  }
 }

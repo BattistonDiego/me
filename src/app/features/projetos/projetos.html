@@ -1,0 +1,145 @@
+<section class="projetos" id="projetos" aria-labelledby="projetos-title">
+  <div class="projetos-inner">
+    <header class="section-heading">
+      <div class="eyebrow" appReveal="top" [revealDistance]="20">
+        <span>04</span><i aria-hidden="true"></i><span>Projetos</span>
+      </div>
+      <h2 id="projetos-title" appReveal="left">Projetos em destaque.</h2>
+      <p appReveal="left" [revealDelay]="120">
+        Estudos práticos onde exploro o stack completo, do banco de dados à interface.
+      </p>
+    </header>
+
+    <div class="projects-grid">
+      @for (projeto of projetos; track projeto.titulo; let i = $index) {
+        <article
+          class="project-card"
+          [class.revealed]="projeto.revelado"
+          appReveal="top"
+          [revealDistance]="28"
+          [revealDelay]="i * 120"
+          (revealed)="marcarRevelado(projeto)"
+        >
+          <div class="project-cover" [class]="'project-cover cover-' + projeto.capa">
+            @if (projeto.imagem) {
+              <img
+                class="cover-image"
+                [ngSrc]="projeto.imagem"
+                fill
+                sizes="(max-width: 640px) 100vw, (max-width: 1000px) 50vw, 33vw"
+                [alt]="'Captura de tela do projeto ' + projeto.titulo"
+              />
+            } @else {
+              <div class="mock-window" aria-hidden="true">
+                <div class="window-bar">
+                  <span class="window-dots"><i></i><i></i><i></i></span>
+                  @if (projeto.capa === 'habitos') {
+                    <span class="habits-pill"></span>
+                  }
+                  @if (projeto.capa === 'dashboard') {
+                    <span class="live-indicator"><i></i><b></b></span>
+                  }
+                </div>
+                @switch (projeto.capa) {
+                  @case ('habitos') {
+                    <div class="habit-grid">
+                      @for (cell of habitCells; track $index) {
+                        <i [class]="cell"></i>
+                      }
+                    </div>
+                  }
+                  @case ('kanban') {
+                    <div class="kanban-columns">
+                      <div class="kanban-column">
+                        <i class="column-title"></i><i class="kanban-ticket"></i
+                        ><i class="kanban-ticket"></i><i class="kanban-ticket"></i>
+                      </div>
+                      <div class="kanban-column">
+                        <i class="column-title"></i><i class="kanban-ticket"></i
+                        ><i class="kanban-ticket"></i><i class="kanban-ticket dragged"></i>
+                      </div>
+                      <div class="kanban-column">
+                        <i class="column-title"></i><i class="kanban-ticket"></i>
+                      </div>
+                    </div>
+                  }
+                  @case ('dashboard') {
+                    <div class="dashboard-content">
+                      <svg class="chart" viewBox="0 0 280 88" preserveAspectRatio="none">
+                        <defs>
+                          <linearGradient id="projectChartGradient" x1="0" x2="1">
+                            <stop offset="0%" stop-color="#8B5CF6" />
+                            <stop offset="100%" stop-color="#22D3EE" />
+                          </linearGradient>
+                        </defs>
+                        <path
+                          d="M5 65 29 56 51 62 76 39 99 45 124 28 148 43 172 20 197 31 222 14 246 22 275 7"
+                          fill="none"
+                          stroke="url(#projectChartGradient)"
+                          stroke-width="2.5"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                          pathLength="1"
+                        />
+                      </svg>
+                      <div class="dashboard-list"><i></i><b></b><i></i><b></b><i></i><b></b></div>
+                    </div>
+                  }
+                }
+              </div>
+            }
+            @if (projeto.emDesenvolvimento) {
+              <span class="development-badge"><i></i>Em desenvolvimento</span>
+            }
+          </div>
+
+          <div class="project-body">
+            <h3>{{ projeto.titulo }}</h3>
+            <p class="project-description">{{ projeto.descricao }}</p>
+            <ul class="technology-chips" aria-label="Tecnologias utilizadas">
+              @for (tecnologia of projeto.tecnologias; track tecnologia) {
+                <li>{{ tecnologia }}</li>
+              }
+            </ul>
+            <footer class="project-footer">
+              <div class="project-links">
+                <!-- TODO: URLs placeholder mantêm o link visível e inofensivo até serem substituídas. -->
+                <a
+                  [href]="isRealUrl(projeto.urlCodigo) ? projeto.urlCodigo : '#'"
+                  [attr.target]="isRealUrl(projeto.urlCodigo) ? '_blank' : null"
+                  [attr.rel]="isRealUrl(projeto.urlCodigo) ? 'noopener noreferrer' : null"
+                  (click)="isRealUrl(projeto.urlCodigo) || $event.preventDefault()"
+                  aria-label="Ver código no GitHub"
+                >
+                  <svg viewBox="0 0 24 24" aria-hidden="true">
+                    <path
+                      fill="currentColor"
+                      d="M12 .9a11.1 11.1 0 0 0-3.51 21.63c.56.1.76-.24.76-.54v-2.1c-3.1.67-3.76-1.31-3.76-1.31-.5-1.28-1.23-1.62-1.23-1.62-1.01-.69.08-.68.08-.68 1.12.08 1.71 1.15 1.71 1.15 1 .1.99 2.14 3.5 1.63.1-.72.39-1.22.7-1.5-2.48-.28-5.08-1.24-5.08-5.52 0-1.22.44-2.21 1.15-2.99-.12-.28-.5-1.42.11-2.96 0 0 .94-.3 3.05 1.14a10.6 10.6 0 0 1 5.55 0c2.11-1.43 3.05-1.14 3.05-1.14.61 1.54.23 2.68.11 2.96.72.78 1.15 1.77 1.15 2.99 0 4.29-2.61 5.23-5.1 5.51.4.34.75 1.02.75 2.06v3.05c0 .3.2.65.77.54A11.1 11.1 0 0 0 12 .9Z"
+                    /></svg
+                  ><span>Código</span>
+                </a>
+                <a
+                  class="live-link"
+                  [href]="isRealUrl(projeto.urlProjeto) ? projeto.urlProjeto : '#'"
+                  [attr.target]="isRealUrl(projeto.urlProjeto) ? '_blank' : null"
+                  [attr.rel]="isRealUrl(projeto.urlProjeto) ? 'noopener noreferrer' : null"
+                  (click)="isRealUrl(projeto.urlProjeto) || $event.preventDefault()"
+                  ><span>Ver projeto</span
+                  ><svg viewBox="0 0 16 16" aria-hidden="true">
+                    <path
+                      d="M4 12 12 4M5 4h7v7"
+                      fill="none"
+                      stroke="currentColor"
+                      stroke-width="1.7"
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                    /></svg
+                ></a>
+              </div>
+            </footer>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,150 @@
+<section class="contato" id="contato" aria-labelledby="contato-title">
+  <div class="contato-inner">
+    <div class="contact-copy">
+      <div class="eyebrow" appReveal="top" [revealDistance]="20">
+        <span>05</span><i aria-hidden="true"></i><span>Contato</span>
+      </div>
+      <h2 id="contato-title" appReveal="left">Vamos<br />conversar?</h2>
+      <p class="contact-intro" appReveal="left" [revealDelay]="120">
+        Estou aberto a novas oportunidades, projetos e boas conversas sobre tecnologia. Me mande uma
+        mensagem.
+      </p>
+      <a
+        class="email-link"
+        appReveal="top"
+        [revealDelay]="180"
+        href="mailto:diegobattiston014@gmail.com"
+      >
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <rect x="3" y="5" width="18" height="14" rx="2" />
+          <path d="m4 7 8 6 8-6" /></svg
+        ><span>diegobattiston014@gmail.com</span>
+      </a>
+      <div class="social-links">
+        <!-- TODO: trocar USUARIO pelo seu nome de usuário real no GitHub. -->
+        <a
+          appReveal="top"
+          [revealDelay]="280"
+          href="https://www.linkedin.com/in/diego-battiston10"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M5 3.5A1.8 1.8 0 1 0 5 7a1.8 1.8 0 0 0 0-3.5ZM3.5 9h3v11h-3Zm5.5 0h2.9v1.5h.1a3.2 3.2 0 0 1 2.9-1.8c3.1 0 3.7 2 3.7 4.6V20h-3v-5.9c0-1.4 0-3-1.9-3s-2.2 1.5-2.2 2.9V20H9Z"
+            /></svg
+          ><span>LinkedIn</span></a
+        >
+        <a
+          appReveal="top"
+          [revealDelay]="380"
+          href="https://github.com/BattistonDiego"
+          target="_blank"
+          rel="noopener noreferrer"
+          ><svg viewBox="0 0 24 24" aria-hidden="true">
+            <path
+              d="M12 2.6a9.5 9.5 0 0 0-3 18.5c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.1-1.1-1.4-1.1-1.4-.9-.6.1-.6.1-.6 1 0 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.6.4-1.1.6-1.3-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.7 9.7 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.5 4.9.4.3.7.9.7 1.8v2.7c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2.6Z"
+            /></svg
+          ><span>GitHub</span></a
+        >
+      </div>
+      <div class="contact-meta">
+        <p appReveal="top" [revealDistance]="0" [revealDelay]="440">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" />
+            <circle cx="12" cy="10" r="2.5" /></svg
+          ><span>Madrid, Espanha</span>
+        </p>
+        <p appReveal="top" [revealDistance]="0" [revealDelay]="500">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" />
+            <path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18" /></svg
+          ><span>Português (nativo) · Inglês (B2) · Espanhol (B2)</span>
+        </p>
+      </div>
+    </div>
+
+    <form
+      class="contact-form"
+      [formGroup]="form"
+      (ngSubmit)="enviar()"
+      appReveal="right"
+      aria-labelledby="form-title"
+    >
+      <h3 id="form-title">Envie uma mensagem</h3>
+      <div class="form-fields">
+        <div class="field" appReveal="top" [revealDistance]="14" [revealDelay]="60">
+          <label for="contact-name">Nome</label
+          ><input
+            id="contact-name"
+            type="text"
+            formControlName="nome"
+            placeholder="Seu nome"
+            autocomplete="name"
+            [attr.aria-invalid]="mostrarErro('nome') && form.controls.nome.invalid"
+            [attr.aria-describedby]="
+              mostrarErro('nome') && form.controls.nome.invalid ? 'name-error' : null
+            "
+          />
+          @if (mostrarErro('nome') && form.controls.nome.hasError('required')) {
+            <small class="field-error" id="name-error">Informe seu nome.</small>
+          } @else if (mostrarErro('nome') && form.controls.nome.hasError('minlength')) {
+            <small class="field-error" id="name-error">Use ao menos 2 caracteres.</small>
+          }
+        </div>
+        <div class="field" appReveal="top" [revealDistance]="14" [revealDelay]="120">
+          <label for="contact-email">E-mail</label
+          ><input
+            id="contact-email"
+            type="email"
+            formControlName="email"
+            placeholder="voce@empresa.com"
+            autocomplete="email"
+            [attr.aria-invalid]="mostrarErro('email') && form.controls.email.invalid"
+            [attr.aria-describedby]="
+              mostrarErro('email') && form.controls.email.invalid ? 'email-error' : null
+            "
+          />
+          @if (mostrarErro('email') && form.controls.email.hasError('required')) {
+            <small class="field-error" id="email-error">Informe seu e-mail.</small>
+          } @else if (mostrarErro('email') && form.controls.email.hasError('email')) {
+            <small class="field-error" id="email-error">Digite um e-mail válido.</small>
+          }
+        </div>
+        <div class="field message-field" appReveal="top" [revealDistance]="14" [revealDelay]="180">
+          <label for="contact-message">Mensagem</label
+          ><textarea
+            id="contact-message"
+            formControlName="mensagem"
+            rows="5"
+            placeholder="Conte um pouco sobre a oportunidade ou projeto..."
+            [attr.aria-invalid]="mostrarErro('mensagem') && form.controls.mensagem.invalid"
+            [attr.aria-describedby]="
+              mostrarErro('mensagem') && form.controls.mensagem.invalid ? 'message-error' : null
+            "
+          ></textarea>
+          @if (mostrarErro('mensagem') && form.controls.mensagem.hasError('required')) {
+            <small class="field-error" id="message-error">Escreva uma mensagem.</small>
+          } @else if (mostrarErro('mensagem') && form.controls.mensagem.hasError('minlength')) {
+            <small class="field-error" id="message-error">Use ao menos 10 caracteres.</small>
+          }
+        </div>
+        <div class="honeypot" aria-hidden="true">
+          <label for="contact-website">Website</label
+          ><input
+            id="contact-website"
+            type="text"
+            formControlName="website"
+            tabindex="-1"
+            autocomplete="off"
+          />
+        </div>
+      </div>
+      <button class="submit-button" type="submit" [disabled]="form.invalid || sending">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="m22 2-7 20-4-9-9-4 20-7ZM22 2 11 13" /></svg
+        ><span>{{ sending ? 'Enviando...' : 'Enviar' }}</span>
+      </button>
+      <p class="confirmation" aria-live="polite">{{ confirmation }}</p>
+    </form>
+  </div>
+</section>

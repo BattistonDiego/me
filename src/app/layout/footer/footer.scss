@@ -1,0 +1,10 @@
+@use '../../../styles/variables' as *;
+
+.site-footer { border-top: 1px solid $border-subtle; }
+.footer-inner { width: min(1084px, 84.6%); min-height: 94px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; gap: 24px; }
+.footer-inner p { margin: 0; color: $text-secondary; font-size: 13px; }
+.footer-inner button { min-height: 40px; padding: 0 14px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid $border-subtle; border-radius: 12px; background: transparent; color: $text-secondary; font: inherit; font-size: 13px; cursor: pointer; transition: border-color 200ms ease, color 200ms ease; }
+.footer-inner button:hover { border-color: rgba(139,92,246,.45); color: $text-primary; }
+.footer-inner svg { width: 15px; height: 15px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+@media (max-width: 640px) { .footer-inner { width: calc(100% - 36px); min-height: 86px; flex-wrap: wrap; justify-content: center; padding: 18px 0; text-align: center; gap: 14px; } }
+@media (prefers-reduced-motion: reduce) { .footer-inner button { transition: none; } }

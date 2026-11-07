@@ -1,0 +1,31 @@
+<section class="skills" id="skills" aria-labelledby="skills-title">
+  <div class="skills-inner">
+    <div class="skills-header">
+      <div class="section-heading">
+        <div class="eyebrow" appReveal="top" [revealDistance]="20"><span>03</span><i aria-hidden="true"></i><span>Skills</span></div>
+        <h2 id="skills-title" appReveal="left">Ferramentas do dia a dia.</h2>
+      </div>
+      <aside class="certification" appReveal="right" aria-label="Certificação AWS Certified Cloud Practitioner">
+        <span class="certification-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none"><path d="M12 2.8 19.4 5.6v5.1c0 5-3.2 8.5-7.4 10.5-4.2-2-7.4-5.5-7.4-10.5V5.6L12 2.8Z" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/><path d="m8.7 11.8 2.2 2.2 4.5-4.6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </span>
+        <span class="certification-copy"><strong>AWS Certified Cloud Practitioner</strong><small>CLF-C02 · Amazon Web Services</small></span>
+      </aside>
+    </div>
+
+    <div class="skills-grid">
+      @for (categoria of categorias; track categoria.nome) {
+        <article class="skill-card" [class.featured]="categoria.destaque" [class.in-study]="categoria.emEstudo" appReveal="top" [revealDistance]="24" [revealDelay]="$index * 90">
+          <div class="card-heading"><h3>{{ categoria.nome }}</h3><span>{{ categoria.nivel }}</span></div>
+          <p class="description">{{ categoria.descricao }}</p>
+          <ul class="chips" aria-label="Tecnologias">
+            @for (tecnologia of categoria.tecnologias; track tecnologia) { <li>{{ tecnologia }}</li> }
+          </ul>
+          <div class="progress-track" role="progressbar" [attr.aria-label]="'Nível em ' + categoria.nome" [attr.aria-valuenow]="categoria.percentual" aria-valuemin="0" aria-valuemax="100">
+            <span [style.width.%]="categoria.percentual"></span>
+          </div>
+        </article>
+      }
+    </div>
+  </div>
+</section>
