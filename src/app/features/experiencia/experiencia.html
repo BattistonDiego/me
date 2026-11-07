@@ -12,19 +12,33 @@
         <article class="timeline-entry" [class.revealed]="experiencia.revelada">
           <span class="timeline-dot" aria-hidden="true"></span>
           <div class="experience-card" appReveal="right" (revealed)="revelarExperiencia(experiencia)">
-            <div class="card-heading">
-              <h3>{{ experiencia.empresa }}</h3>
-              <time>{{ experiencia.periodo }}</time>
+            <div class="card-topline">
+              <div class="company-heading">
+                <div class="company-logo" [class.logo-light]="experiencia.fundoLogo === 'claro'" [class.logo-fallback]="!experiencia.logo || experiencia.logoFalhou">
+                  @if (experiencia.logo && !experiencia.logoFalhou) {
+                    <img [ngSrc]="'/' + experiencia.logo" width="52" height="52" [alt]="'Logo da ' + experiencia.empresa" loading="lazy" (error)="falharLogo(experiencia)">
+                  } @else {
+                    <span role="img" [attr.aria-label]="'Logo da ' + experiencia.empresa">{{ iniciais(experiencia.empresa) }}</span>
+                  }
+                </div>
+                <div class="company-copy">
+                  <h3>{{ experiencia.empresa }}</h3>
+                  @if (experiencia.pais) {
+                    <p class="country"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z"></path><circle cx="12" cy="10" r="2.5"></circle></svg>{{ experiencia.pais }}</p>
+                  }
+                  <p class="role" [class.current-role]="experiencia.atual">{{ experiencia.cargo }}</p>
+                  @if (experiencia.projeto) { <p class="project">{{ experiencia.projeto }}</p> }
+                </div>
+              </div>
+              <div class="period-group"><time>{{ experiencia.periodo }}</time>@if (experiencia.atual) { <span class="current-pill"><i aria-hidden="true"></i>Atual</span> }</div>
             </div>
-            <p class="role">{{ experiencia.cargo }}</p>
-            @if (experiencia.projeto) { <p class="project">{{ experiencia.projeto }}</p> }
             <p class="description">{{ experiencia.descricao }}</p>
             <ul class="deliverables">
               @for (entrega of experiencia.entregas; track $index) {
                 <li appReveal="top" [revealDistance]="16" [revealDelay]="$index * 80"><span class="check" aria-hidden="true">✓</span><span>{{ entrega }}</span></li>
               }
             </ul>
-            <ul class="technologies" aria-label="Tecnologias">
+            <ul class="technologies" [attr.aria-label]="experiencia.atual ? 'Competências' : 'Tecnologias'">
               @for (tecnologia of experiencia.tecnologias; track tecnologia) {
                 <li appReveal="top" [revealDistance]="12" [revealDelay]="($index + experiencia.entregas.length) * 80">{{ tecnologia }}</li>
               }
