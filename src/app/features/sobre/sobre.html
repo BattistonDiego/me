@@ -23,15 +23,11 @@
       </aside>
     </div>
     <div class="stats">
-      <article class="stat" appReveal="top" (revealed)="startCounters()">
-        <strong>{{ years() }}+</strong><span>anos de experiência</span>
-      </article>
-      <article class="stat" appReveal="top" [revealDelay]="120" (revealed)="startCounters()">
-        <strong>{{ homepage() }}%</strong><span>mais rápido: tempo de carregamento da home</span>
-      </article>
-      <article class="stat" appReveal="top" [revealDelay]="240" (revealed)="startCounters()">
-        <strong>{{ dashboards() }}%</strong><span>menos tempo de renderização em dashboards</span>
-      </article>
+      @for (stat of stats; track $index) {
+        <article class="stat" [class.stat-textual]="stat.textual" appReveal="top" [revealDelay]="$index * 120" (revealed)="$index === 0 && startCounters()">
+          <strong>{{ stat.countUp ? years() + '+' : stat.value }}</strong><span>{{ stat.label }}</span>
+        </article>
+      }
     </div>
   </div>
 </section>
